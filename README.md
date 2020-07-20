@@ -24,14 +24,12 @@ The server stores all information in a sqlite file named game.db on the /ygo fol
 
 ```bash
 touch game.db
-docker run -p 4000:4000 $PWD/game.db:/ygo/game.db ygo
+docker run -p 4000:4000 -v $PWD/game.db:/ygo/game.db ygo
 ```
 
 _ note _ Only do the touch command in the first run of the image; after that the file will exist so you dont need create it again.
 
 ## Load more cards.cdb files
-
-_ alert! _ This part is a work in progress
 
 For default, this image gets the cards.cdb file only for the English Languaje, and is gets automatically from [this repository of the duelist-unite team](https://gitlab.com/duelists-unite/cdb), but you can load any other cdb file to fill the other languajes.
 For that, you have to:
@@ -45,6 +43,14 @@ For that, you have to:
 docker run -p 4000:4000 -v $PWD/cdb:/ygo/cdb ygo
 ```
 
+_ note: _ if you add an "en.cdb" file, it will ovewrite the default cards.cdb file for english languaje. If you want only add, and not replase the default, add the en_ sufix to the cdb file with any name. example: "en_moreCards.cdb"
+
+## see the server output
+
+If you want to see the server output during the run of the container, add the -t flag to the run command.
+```bash
+docker run -t -p 4000:4000 ygo
+```
 
 # extra notes
 

@@ -48,8 +48,12 @@ USER $ERR_USER
 COPY --from=intermediate /ygo/yugioh-game /ygo
 COPY --from=intermediate /ygo/ygopro-scripts /ygo/script
 WORKDIR /ygo
-RUN touch game.db
+RUN touch game.db && mkdir cdb
+
+COPY entrypoint.sh ./entrypoint.sh
+
 
 EXPOSE 4000
 
-CMD venv/bin/python ./ygo.py
+ENTRYPOINT ["./entrypoint.sh"]
+CMD ["-p", "4000"]
